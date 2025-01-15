@@ -7,29 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const nextBtn = document.getElementById('nextBtn');
     const volumeSlider = document.getElementById('volumeSlider');
 
-    const videoSources = [
-        'https://link.storjshare.io/s/jw4jdrw4evyyaazsae4fzod443aa/music/1.mp4',
-        'https://link.storjshare.io/s/jvn5yfvsto4jxrkm53yxo7ifsdvq/music/2.mp4',
-        'https://link.storjshare.io/s/jvkzwlv6fg5v6pdp2yavlk7gffnq/music/3.mp4',
-        'https://link.storjshare.io/s/jvz323tw27wnghzlgcs36kxpqvra/music/3.mp4',
-        'https://link.storjshare.io/s/jus75ykhgbpqn432ix3x6hmy73ea/music/4.mp4',
-        'https://link.storjshare.io/s/jxgnmtegbnckj2uqs7ppqar2yyha/music/4.mp4',
-        'https://link.storjshare.io/s/jxr6ht5vep6senkn5echav2cf3ia/music/5.mp4',
-        'https://link.storjshare.io/s/jw7opm4ueb25le47zhmsplsruc5a/music/6.mp4',
-        'https://link.storjshare.io/s/ju2stcqrsuqfecuejjvjd63o5r3q/music/7.mp4',
-        'https://link.storjshare.io/s/jxkdqefin6ubdppoapxjni34p6ja/music/8.mp4',
-        'https://link.storjshare.io/s/jxxc6fnrprfbqwbnw5kmihdwm6iq/music/9.mp4'
-    ];
-
+    const videoSources = ['assets/milch.mp4'];
     let currentVideoIndex = 0;
 
     playPauseBtn.addEventListener('click', () => {
         if (audio.paused) {
             audio.play();
             video.play();
+            playPauseBtn.classList.add('active');
         } else {
             audio.pause();
             video.pause();
+            playPauseBtn.classList.remove('active');
         }
     });
 
@@ -53,11 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     volumeSlider.addEventListener('input', (e) => {
-        audio.volume = e.target.value;
-        video.volume = e.target.value;
+        const volume = e.target.value;
+        audio.volume = volume;
+        video.volume = volume;
     });
 
-    // Auto-advance to next video when current video ends
     video.addEventListener('ended', () => {
         currentVideoIndex = (currentVideoIndex + 1) % videoSources.length;
         video.src = videoSources[currentVideoIndex];
